@@ -39,4 +39,28 @@ class MarketController{
             return res.status(400);
         }
     }
+
+    // Update
+    updateProduct = async (req: express.Request, res: express.Response) => {
+        try {
+            const {id} = req.params;
+            const {name, quantity, price, image} = req.body;
+
+            const product = await ProductModel.findById(id);
+            if(!product) {
+                return res
+                .sendStatus(404)
+                .json({ message: `cannot find any product with ID ${id}` });
+            }
+            product.name = name;
+            product.quantity = quantity;
+            product.price = price;
+            product.image = image;
+
+            await product.save();
+            return res.status(200).json({message:"Product Updated", data: product});
+        } catch (error) {
+            return res.sendStatus(400);
+        }
+    }
 }
