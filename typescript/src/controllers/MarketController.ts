@@ -34,7 +34,7 @@ class MarketController{
                 image
             });
             await product.save();
-            return res.status(200).json({message: "Created", data: product});
+            return res.status(201).json({message: "Created", data: product});
         } catch (error) {
             return res.status(400);
         }
@@ -59,6 +59,17 @@ class MarketController{
 
             await product.save();
             return res.status(200).json({message:"Product Updated", data: product});
+        } catch (error) {
+            return res.sendStatus(400);
+        }
+    }
+
+    // Delete
+    deleteProduct = async (req: express.Request, res: express.Response) => {
+        try {
+            const {id} = req.params;
+            await ProductModel.findByIdAndDelete({_id: id});
+            return response.status(200).json({message: "Product Deleted"});
         } catch (error) {
             return res.sendStatus(400);
         }
