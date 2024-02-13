@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import router from "./routes";
 
 const app = express();
 app.use(express.json());
@@ -14,3 +15,5 @@ mongoose
     });
 })
 .catch((error)=> console.log(error));
+
+app.use('/', router);

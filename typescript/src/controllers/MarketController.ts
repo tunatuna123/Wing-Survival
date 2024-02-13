@@ -6,9 +6,9 @@ class MarketController{
     getAllProduct = async (req: express.Request, res: express.Response) => {
         try{
             const products = await ProductModel.find();
-            return res.sendStatus(200).json({data: products});
+            return res.status(200).json({data: products});
         } catch (error) {
-            return res.sendStatus(400);
+            return res.status(400);
         }
     }
 
@@ -17,9 +17,9 @@ class MarketController{
         try{
             const {id} = req.params;
             const product = await ProductModel.findById(id);
-            return res.sendStatus(200).json({data: product});
+            return res.status(200).json({data: product});
         } catch (error) {
-            return res.sendStatus(400);
+            return res.status(400);
         }
     }
 
@@ -49,7 +49,7 @@ class MarketController{
             const product = await ProductModel.findById(id);
             if(!product) {
                 return res
-                .sendStatus(404)
+                .status(404)
                 .json({ message: `cannot find any product with ID ${id}` });
             }
             product.name = name;
@@ -60,7 +60,7 @@ class MarketController{
             await product.save();
             return res.status(200).json({message:"Product Updated", data: product});
         } catch (error) {
-            return res.sendStatus(400);
+            return res.status(400);
         }
     }
 
@@ -71,9 +71,9 @@ class MarketController{
             await ProductModel.findByIdAndDelete({_id: id});
             return response.status(200).json({message: "Product Deleted"});
         } catch (error) {
-            return res.sendStatus(400);
+            return res.status(400);
         }
     }
 }
 
-export default new MarketController;
+export default new MarketController();
