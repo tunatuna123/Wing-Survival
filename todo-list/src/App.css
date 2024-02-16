@@ -14,7 +14,9 @@ body{
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-  overflow-y: auto;
+  margin-top: 3%;
+  max-height: 80vh;
+  overflow-y: 0px 5px 7px rgb(27, 27, 27);
 }
 
 .todo-input{
@@ -38,9 +40,28 @@ body{
   margin-bottom: 10px;
 }
 
-.todo-input-item {
+.todo-input-item input{
   padding: 8px;
   border: none;
-  width: 200px;
+  width: 250px;
 }
 
+.todo-input-item input:focus{
+  outline: none;
+  border: 2px solid rgb(0, 230, 122);
+}
+
+.primaryBtn{
+  background-color: rgb(0, 230, 122);
+  color: white;
+  border: none;
+  border-radius: 0px;
+  margin-top: 25px;
+  padding: 10px;
+  width:  60px;
+  cursor: pointer;
+}
+
+.primaryBtn:hover{
+  background-color: rgb(4, 196, 106);
+}
