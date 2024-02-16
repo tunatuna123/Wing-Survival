@@ -32,10 +32,14 @@ function App() {
             </button>
         </div>
         <div className="todo-list">
+
           <div className="todo-list-item">
+
           <h2>Task 1</h2>
           <p>Description</p>
+
           </div>
+          
         </div>
       </div>
     </div>
