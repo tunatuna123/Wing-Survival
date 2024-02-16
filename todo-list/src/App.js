@@ -24,16 +24,18 @@ function App() {
           </div>
         </div>
         <div className="btn-area">
-          <button className={`isCompleteScreen ${isCompleteScreen==false && 'active'}`} onClick={()=>setIsCompleteScreen(false)}>
+          <button className={`secondaryBtn ${isCompleteScreen==false && 'active'}`} onClick={()=>setIsCompleteScreen(false)}>
             Todo
             </button>
-          <button className={`isCompleteScreen ${isCompleteScreen==true && 'active'}`} onClick={()=>setIsCompleteScreen(true)}>
+          <button className={`secondaryBtn ${isCompleteScreen==true && 'active'}`} onClick={()=>setIsCompleteScreen(true)}>
             Completed
             </button>
         </div>
         <div className="todo-list">
-          <h1>Task 1</h1>
+          <div className="todo-list-item">
+          <h2>Task 1</h2>
           <p>Description</p>
+          </div>
         </div>
       </div>
     </div>
