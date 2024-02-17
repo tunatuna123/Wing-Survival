@@ -1,9 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import { MdDeleteForever } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
 
 function App() {
-  const [isCompleteScreen, setIsCompleteScreen] = useState(false)
+  const [isCompleteScreen, setIsCompleteScreen] = useState(false);
   return (
     <div className="App">
       <h1>My todos</h1>
@@ -24,22 +25,26 @@ function App() {
           </div>
         </div>
         <div className="btn-area">
-          <button className={`secondaryBtn ${isCompleteScreen==false && 'active'}`} onClick={()=>setIsCompleteScreen(false)}>
+          <button
+            className={`secondaryBtn ${isCompleteScreen == false && "active"}`}
+            onClick={() => setIsCompleteScreen(false)}
+          >
             Todo
-            </button>
-          <button className={`secondaryBtn ${isCompleteScreen==true && 'active'}`} onClick={()=>setIsCompleteScreen(true)}>
+          </button>
+          <button
+            className={`secondaryBtn ${isCompleteScreen == true && "active"}`}
+            onClick={() => setIsCompleteScreen(true)}
+          >
             Completed
-            </button>
+          </button>
         </div>
         <div className="todo-list">
-
           <div className="todo-list-item">
-
-          <h2>Task 1</h2>
-          <p>Description</p>
-
+            <h2>Task 1</h2>
+            <p>Description</p>
           </div>
-          
+          <MdDeleteForever className="icon" />
+          <FaCheck className="check-icon" />
         </div>
       </div>
     </div>
