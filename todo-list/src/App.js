@@ -8,6 +8,7 @@ function App() {
   const [allTodos, setTodos] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const [completedTools, setCompletedTools] = useState([]);
 
   const handleAddTodo = () => {
     let newTodoItem = {
@@ -21,12 +22,33 @@ function App() {
     localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
   };
 
-  const handleDeleteTodo = index => {
+  const handleDeleteTodo = (index) => {
     let reducedTodo = [...allTodos];
     reducedTodo.splice(index);
 
     localStorage.setItem("todolist", JSON.stringify(reducedTodo));
     setTodos(reducedTodo);
+  };
+
+  const handleComplete = (index) => {
+    let now = new Date();
+    let dd = now.getDate().toString().padStart(2, "0");
+    let mm = (now.getMonth() + 1).toString().padStart(2, "0");
+    let yyyy = now.getFullYear();
+    let h = now.getHours().toString().padStart(2, "0");
+    let m = now.getMinutes().toString().padStart(2, "0");
+    let s = now.getSeconds().toString().padStart(2, "0");
+    let completedOn =
+      yyyy + "-" + mm + "-" + dd + " at " + h + ":" + m + ":" + s;
+
+    let filteredItem = {
+      ...allTodos[index],
+      completedOn: completedOn,
+    };
+
+    let updatedCompletedArr = [...completedTools];
+    updatedCompletedArr.push(filteredItem);
+    setCompletedTools(updatedCompletedArr);
   };
 
   useEffect(() => {
@@ -69,6 +91,7 @@ function App() {
             </button>
           </div>
         </div>
+
         <div className="btn-area">
           <button
             className={`secondaryBtn ${isCompleteScreen == false && "active"}`}
@@ -76,6 +99,7 @@ function App() {
           >
             Todo
           </button>
+
           <button
             className={`secondaryBtn ${isCompleteScreen == true && "active"}`}
             onClick={() => setIsCompleteScreen(true)}
@@ -83,25 +107,54 @@ function App() {
             Completed
           </button>
         </div>
+
         <div className="todo-list">
-          {allTodos.map((item, index) => {
-            return (
-              <div className="todo-list-item" key={index}>
-                <div>
-                  <h2>{item.title}</h2>
-                  <p>{item.description}</p>
+          {isCompleteScreen == false &&
+            allTodos.map((item, index) => {
+              return (
+                <div className="todo-list-item" key={index}>
+                  <div>
+                    <h2>{item.title}</h2>
+                    <p>{item.description}</p>
+                  </div>
+                  <div>
+                    <MdDeleteForever
+                      className="icon"
+                      onClick={() => handleDeleteTodo(index)}
+                      title="Delete?"
+                    />
+                    <FaCheck
+                      className="check-icon"
+                      onClick={() => handleComplete(index)}
+                      title="Complete?"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <MdDeleteForever
-                    className="icon"
-                    onClick={() => handleDeleteTodo(index)}
-                    title="Delete?"
-                  />
-                  <FaCheck className="check-icon" />
+              );
+            })}
+
+          {isCompleteScreen == true &&
+            completedTools.map((item, index) => {
+              return (
+                <div className="todo-list-item" key={index}>
+                  <div>
+                    <h2>{item.title}</h2>
+                    <p>{item.description}</p>
+                    <p>
+                      <small>Completed on: {item.completedOn}</small>
+                    </p>
+                  </div>
+
+                  <div>
+                    <MdDeleteForever
+                      className="icon"
+                      onClick={() => handleDeleteTodo(index)}
+                      title="Delete?"
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </div>
