@@ -100,12 +100,15 @@ body {
   padding-bottom: 10px;
   padding-top: 10px;
   margin-bottom: 10px;
+  align-items: center;
+  box-shadow: 0px 3px 5px rgb(44, 43, 43);
 }
 
 .todo-list-item h2 {
   font-size: 25px;
   color: rgb(0, 230, 122);
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .todo-list-item p {
@@ -115,7 +118,7 @@ body {
 }
 
 .icon {
-  font-size: 25px;
+  font-size: 35px;
   cursor: pointer;
 }
 
@@ -124,7 +127,12 @@ body {
 }
 
 .check-icon {
-  font-size: 25px;
+  font-size: 35px;
   margin-left: 10px;
   color: rgb(0, 230, 122);
+  cursor: pointer;
+}
+
+.check-icon:hover{
+  color: rgb(4, 196, 106);
 }

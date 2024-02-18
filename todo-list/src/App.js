@@ -5,6 +5,22 @@ import { FaCheck } from "react-icons/fa";
 
 function App() {
   const [isCompleteScreen, setIsCompleteScreen] = useState(false);
+  const [allTodos, setTodos] = useState([]);
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+
+  const handleAddTodo = () => {
+    let newTodoItem = {
+      title: newTitle,
+      description: newDescription,
+    };
+
+    let updatedTodoArr = [...allTodos];
+    updatedTodoArr.push(newTodoItem);
+    setTodos(updatedTodoArr);
+    localStorage.setItem('todolist', JSON.stringify(updatedTodoArr))
+  };
+
   return (
     <div className="App">
       <h1>My todos</h1>
@@ -12,14 +28,28 @@ function App() {
         <div className="todo-input">
           <div className="todo-input-item">
             <label>Title</label>
-            <input type="text" placeholder="What's the task title?" />
+            <input
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder="What's the task title?"
+            />
           </div>
           <div className="todo-input-item">
             <label>Description</label>
-            <input type="text" placeholder="What's your description?" />
+            <input
+              type="text"
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+              placeholder="What's your description?"
+            />
           </div>
           <div className="todo-input-item">
-            <button type="button" className="primaryBtn">
+            <button
+              type="button"
+              onClick={handleAddTodo}
+              className="primaryBtn"
+            >
               Add
             </button>
           </div>
@@ -39,12 +69,20 @@ function App() {
           </button>
         </div>
         <div className="todo-list">
-          <div className="todo-list-item">
-            <h2>Task 1</h2>
-            <p>Description</p>
-          </div>
-          <MdDeleteForever className="icon" />
-          <FaCheck className="check-icon" />
+          {allTodos.map((item, index) => {
+            return (
+              <div className="todo-list-item" key={index}>
+                <div>
+                  <h2>{item.title}</h2>
+                  <p>{item.description}</p>
+                </div>
+                <div>
+                  <MdDeleteForever className="icon" />
+                  <FaCheck className="check-icon" />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
