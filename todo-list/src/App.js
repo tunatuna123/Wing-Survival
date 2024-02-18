@@ -29,6 +29,7 @@ function App() {
     localStorage.setItem("todolist", JSON.stringify(reducedTodo));
     setTodos(reducedTodo);
   };
+  
 
   const handleComplete = (index) => {
     let now = new Date();
@@ -49,6 +50,7 @@ function App() {
     let updatedCompletedArr = [...completedTools];
     updatedCompletedArr.push(filteredItem);
     setCompletedTools(updatedCompletedArr);
+    handleDeleteTodo(index);
   };
 
   useEffect(() => {
