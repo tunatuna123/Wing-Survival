@@ -8,7 +8,7 @@ function App() {
   const [allTodos, setTodos] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
-  const [completedTools, setCompletedTools] = useState([]);
+  const [completedTodos, setCompletedTodos] = useState([]);
 
   const handleAddTodo = () => {
     let newTodoItem = {
@@ -24,12 +24,19 @@ function App() {
 
   const handleDeleteTodo = (index) => {
     let reducedTodo = [...allTodos];
-    reducedTodo.splice(index);
+    reducedTodo.splice(index, 1);
 
     localStorage.setItem("todolist", JSON.stringify(reducedTodo));
     setTodos(reducedTodo);
   };
-  
+
+  const handleDeleteCompletedTodo = (index) => {
+    let reducedTodo = [...completedTodos];
+    reducedTodo.splice(index, 1);
+
+    localStorage.setItem("completedTodos", JSON.stringify(reducedTodo));
+    setCompletedTodos(reducedTodo);
+  };
 
   const handleComplete = (index) => {
     let now = new Date();
@@ -47,23 +54,23 @@ function App() {
       completedOn: completedOn,
     };
 
-    let updatedCompletedArr = [...completedTools];
+    let updatedCompletedArr = [...completedTodos];
     updatedCompletedArr.push(filteredItem);
-    setCompletedTools(updatedCompletedArr);
+    setCompletedTodos(updatedCompletedArr);
     handleDeleteTodo(index);
-    localStorage.setItem('completedTodos', JSON.stringify(updatedCompletedArr))
+    localStorage.setItem("completedTodos", JSON.stringify(updatedCompletedArr));
   };
 
   useEffect(() => {
     let savedToto = JSON.parse(localStorage.getItem("todolist"));
-    let savedCompletedTodo = JSON.parse(localStorage.getItem('completedTodos'));
-    
+    let savedCompletedTodo = JSON.parse(localStorage.getItem("completedTodos"));
+
     if (savedToto) {
       setTodos(savedToto);
     }
 
-    if(savedCompletedTodo) {
-      setCompletedTools(savedCompletedTodo)
+    if (savedCompletedTodo) {
+      setCompletedTodos(savedCompletedTodo);
     }
   }, []);
 
@@ -143,7 +150,7 @@ function App() {
             })}
 
           {isCompleteScreen == true &&
-            completedTools.map((item, index) => {
+            completedTodos.map((item, index) => {
               return (
                 <div className="todo-list-item" key={index}>
                   <div>
@@ -157,7 +164,7 @@ function App() {
                   <div>
                     <MdDeleteForever
                       className="icon"
-                      onClick={() => handleDeleteTodo(index)}
+                      onClick={() => handleDeleteCompletedTodo(index)}
                       title="Delete?"
                     />
                   </div>
