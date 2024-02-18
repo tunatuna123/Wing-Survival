@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
 
@@ -20,6 +20,13 @@ function App() {
     setTodos(updatedTodoArr);
     localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
   };
+
+  useEffect(()=>{
+    let savedToto = JSON.parse(localStorage.getItem('todolist'));
+    if(savedToto){
+      setTodos(savedToto)
+    }
+  },[])
 
   return (
     <div className="App">
